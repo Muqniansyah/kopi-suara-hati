@@ -497,7 +497,7 @@ footer .credit a {
   top: 0;
   z-index: 9999;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.6);
 }
@@ -510,6 +510,20 @@ footer .credit a {
   padding: 1.2rem;
   border: 1px solid #666;
   width: 80%;
+  animation: animateModal 0.5s;
+}
+
+/* Modal Animation */
+@keyframes animateModal {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 .modal-container .close-icon {
