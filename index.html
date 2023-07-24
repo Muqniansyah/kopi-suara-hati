@@ -8,7 +8,10 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
     <!-- My CSS -->
@@ -23,14 +26,53 @@
         <a href="#home">Home</a>
         <a href="#about">Tentang Kami</a>
         <a href="#menu">Menu</a>
+        <a href="#products">Produk</a>
         <a href="#contact">kontak</a>
       </div>
 
       <div class="navbar-extra">
-        <a href="#" id="search"><i data-feather="search"></i></a>
+        <a href="#" id="search-button"><i data-feather="search"></i></a>
         <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
         <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
       </div>
+
+      <!-- Search form Start-->
+      <div class="search-form">
+        <input type="search" id="search-box" placeholder="search here..." />
+        <label for="search-box"><i data-feather="search"></i></label>
+      </div>
+      <!-- Search form End-->
+
+      <!-- Shopping cart Start -->
+      <div class="shopping-cart">
+        <div class="cart-item">
+          <img src="img/products/produk1.jpg" alt="Product 1" />
+          <div class="item-detail">
+            <h3>Product 1</h3>
+            <div class="item-price">IDR 30K</div>
+          </div>
+          <i data-feather="trash-2" class="remove-item"></i>
+        </div>
+
+        <div class="cart-item">
+          <img src="img/products/produk1.jpg" alt="Product 1" />
+          <div class="item-detail">
+            <h3>Product 1</h3>
+            <div class="item-price">IDR 30K</div>
+          </div>
+          <i data-feather="trash-2" class="remove-item"></i>
+        </div>
+
+        <div class="cart-item">
+          <img src="img/products/produk1.jpg" alt="Product 1" />
+          <div class="item-detail">
+            <h3>Product 1</h3>
+            <div class="item-price">IDR 30K</div>
+          </div>
+          <i data-feather="trash-2" class="remove-item"></i>
+        </div>
+      </div>
+      <!-- Shopping cart End -->
     </nav>
     <!-- Navbar End -->
 
@@ -54,8 +96,14 @@
         </div>
         <div class="content">
           <h3>Kenapa memilih kopi kami?</h3>
-          <p>Kopi kami memiliki cita rasa yang unik dan menyegarkan serta memiliki beberapa varian yang perlu kamu coba nikmati.</p>
-          <p>Kopi kami dapat mengurangi rasa lelah, suasana hati menjadi lebih tenang hingga meningkatkan energi.</p>
+          <p>
+            Kopi kami memiliki cita rasa yang unik dan menyegarkan serta
+            memiliki beberapa varian yang perlu kamu coba nikmati.
+          </p>
+          <p>
+            Kopi kami dapat mengurangi rasa lelah, suasana hati menjadi lebih
+            tenang hingga meningkatkan energi.
+          </p>
         </div>
       </div>
     </section>
@@ -68,17 +116,29 @@
 
       <div class="row">
         <div class="menu-card">
-          <img src="./img/menu/americano.jpg" alt="Americano" class="menu-card-img" />
+          <img
+            src="./img/menu/americano.jpg"
+            alt="Americano"
+            class="menu-card-img"
+          />
           <h3 class="menu-card-title">- Americano -</h3>
           <p class="menu-card-price">IDR 20K</p>
         </div>
         <div class="menu-card">
-          <img src="./img/menu/cappucino.jpg" alt="Cappucino" class="menu-card-img" />
+          <img
+            src="./img/menu/cappucino.jpg"
+            alt="Cappucino"
+            class="menu-card-img"
+          />
           <h3 class="menu-card-title">- Cappucino -</h3>
           <p class="menu-card-price">IDR 20K</p>
         </div>
         <div class="menu-card">
-          <img src="./img/menu/espresso.jpg" alt="Espresso" class="menu-card-img" />
+          <img
+            src="./img/menu/espresso.jpg"
+            alt="Espresso"
+            class="menu-card-img"
+          />
           <h3 class="menu-card-title">- Espresso -</h3>
           <p class="menu-card-price">IDR 25K</p>
         </div>
@@ -88,7 +148,11 @@
           <p class="menu-card-price">IDR 20K</p>
         </div>
         <div class="menu-card">
-          <img src="./img/menu/moccachino.jpg" alt="Moccachino" class="menu-card-img" />
+          <img
+            src="./img/menu/moccachino.jpg"
+            alt="Moccachino"
+            class="menu-card-img"
+          />
           <h3 class="menu-card-title">- Moccachino -</h3>
           <p class="menu-card-price">IDR 30K</p>
         </div>
@@ -96,10 +160,103 @@
     </section>
     <!-- Menu Section End -->
 
+    <!-- Product Section Start -->
+    <section class="products" id="products">
+      <h2><span>Produk Unggulan</span> Kami</h2>
+      <p>
+        Kami menyediakan produk biji kopi unggulan, pesan sekarang juga sebelum
+        kehabisan.
+      </p>
+
+      <div class="row">
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#" class="item-detail-button"
+              ><i data-feather="eye"></i
+            ></a>
+          </div>
+          <div class="product-image">
+            <img src="./img/products/produk1.jpg" alt="Product 1" />
+          </div>
+          <div class="product-content">
+            <h3>Coffe beans 1</h3>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="product-price">
+              IDR 30K
+              <span>IDR 55K</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#" class="item-detail-button"
+              ><i data-feather="eye"></i
+            ></a>
+          </div>
+          <div class="product-image">
+            <img src="./img/products/produk1.jpg" alt="Product 1" />
+          </div>
+          <div class="product-content">
+            <h3>Coffe beans 1</h3>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="product-price">
+              IDR 30K
+              <span>IDR 55K</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-icons">
+            <a href="#"><i data-feather="shopping-cart"></i></a>
+            <a href="#" class="item-detail-button"
+              ><i data-feather="eye"></i
+            ></a>
+          </div>
+          <div class="product-image">
+            <img src="./img/products/produk1.jpg" alt="Product 1" />
+          </div>
+          <div class="product-content">
+            <h3>Coffe beans 1</h3>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="product-price">
+              IDR 30K
+              <span>IDR 55K</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Product Section End -->
+
     <!-- contact Section Start -->
     <section class="contact" id="contact">
       <h2><span>Kontak</span> Kami</h2>
-      <p>Jika ada pertanyaan, saran atau kritik anda bisa menghubungi kami dengan cara mengisi form dibawah ini.</p>
+      <p>
+        Jika ada pertanyaan, saran atau kritik anda bisa menghubungi kami dengan
+        cara mengisi form dibawah ini.
+      </p>
 
       <div class="row">
         <iframe
@@ -150,8 +307,41 @@
     </footer>
     <!-- Footer End -->
 
+    <!-- Modal box item detail Start -->
+    <div class="modal" id="item-detail-modal">
+      <div class="modal-container">
+        <a href="#" class="close-icon"><i data-feather="x"></i></a>
+        <div class="modal-content">
+          <img src="img/products/produk1.jpg" alt="Product 1" />
+          <div class="product-content">
+            <h3>Product 1</h3>
+            <p>
+              Biji kopi kami merupakan biji kopi pilihan yang diekstrak lagsung
+              dari biji biji berkualitas dan sehat.
+            </p>
+            <div class="product-stars">
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star" class="star-full"></i>
+              <i data-feather="star"></i>
+            </div>
+            <div class="product-price">
+              IDR 30K
+              <span>IDR 55K</span>
+            </div>
+            <a href="#"
+              ><i data-feather="shopping-cart"></i> <span>add to cart</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal box item detail End -->
+
     <!-- Feather Icons -->
     <script>
+      // untuk pakai feather icons
       feather.replace();
     </script>
 
