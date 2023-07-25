@@ -182,29 +182,38 @@ body {
   background-image: url("../img/header-bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  /* background-position: center; */
   position: relative;
+  /* membuat masking untuk gradasi warna */
+  /* untuk masking yang ada warnanya jadi transparan */
+  /* tambahkan prefix webkit supaya chorme support mask */
+  -webkit-mask-image: linear-gradient(rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0));
+  mask-image: linear-gradient(rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0));
 }
 
 /* pseudo element untuk hero supaya ada gradasi warna*/
-.hero::after {
+/* .hero::after {
   content: "";
   display: block;
   position: absolute;
   width: 100%;
-  height: 30%;
-  /* untuk tempelin kebawah dengan pakai bottom nilainya 0 */
-  bottom: 0;
+  height: 30%; */
+/* untuk tempelin kebawah dengan pakai bottom nilainya 0 */
+/* bottom: 0;
   background: linear-gradient(
     0deg,
     rgba(1, 1, 3, 1) 8%,
     rgba(255, 255, 255, 0) 50%
   );
-}
+} */
 
 .hero .content {
   padding: 1.4rem 7%;
-  max-width: 60rem;
+  width: 100%;
+  text-align: center;
+  /* max-width: 60rem; */
+  position: fixed;
+  top: 80px;
 }
 
 .hero .content h1 {
@@ -275,6 +284,11 @@ body {
 .about .row .about-img img {
   /* supaya memenuhi 1 bagian flexnya maka diberikan width 100%*/
   width: 100%;
+  /* membuat maskingnya digambarnya langsung */
+  -webkit-mask-image: url(../img/menu/coffeBean.svg);
+  -webkit-mask-size: 50%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
 }
 
 .about .row .content {
