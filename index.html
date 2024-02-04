@@ -16,10 +16,18 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <!-- My CSS -->
     <link rel="stylesheet" href="css/style.css" />
+    <!-- Alpine js -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <!-- App -->
+    <script src="src/app.js"></script>
   </head>
   <body>
     <!-- Navbar Start -->
-    <nav class="navbar">
+    <nav class="navbar" x-data>
+      <!-- tujuan dari x-data agar pada navbar bisa menggunakan data dari alpine -->
       <a href="#" class="navbar-logo">suara<span>hati</span>.</a>
 
       <div class="navbar-nav">
@@ -32,9 +40,17 @@
 
       <div class="navbar-extra">
         <a href="#" id="search-button"><i data-feather="search"></i></a>
-        <a href="#" id="shopping-cart-button"
-          ><i data-feather="shopping-cart"></i
-        ></a>
+        <a href="#" id="shopping-cart-button">
+          <i data-feather="shopping-cart"></i>
+          <!-- menggunakan fitur x-text dan x-show dari alpine js -->
+          <!-- panggil data storenya alpine lalu panggil datanya dengan nama data cart lalu kita panggil quantity -->
+          <!-- x-show bertujuan untuk jika barangnya ada maka tampilkan quantitynya dan jika kosong barangnya maka disembunyikan. -->
+          <span
+            class="quantity-badge"
+            x-show="$store.cart.quantity"
+            x-text="$store.cart.quantity"
+          ></span>
+        </a>
         <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
       </div>
 
@@ -47,31 +63,65 @@
 
       <!-- Shopping cart Start -->
       <div class="shopping-cart">
-        <div class="cart-item">
-          <img src="img/products/produk1.jpg" alt="Product 1" />
-          <div class="item-detail">
-            <h3>Product 1</h3>
-            <div class="item-price">IDR 30K</div>
+        <!-- looping data dengan alpine template-->
+        <template x-for="(item, index) in $store.cart.items" x-key="index">
+          <div class="cart-item">
+            <!-- menggunakan fitur src dan alt dari alpine js -->
+            <img :src="`./img/products/${item.img}`" :alt="item.name" />
+            <div class="item-detail">
+              <!-- menggunakan fitur x-text dan @click dari alpine js -->
+              <h3 x-text="item.name"></h3>
+              <div class="item-price">
+                <span x-text="rupiah(item.price)"></span> &times;
+                <button id="remove" @click="$store.cart.remove(item.id)">
+                  &minus;
+                </button>
+                <span x-text="item.quantity"></span>
+                <span id="add" @click="$store.cart.add(item)">&plus;</span>
+                &equals;
+                <span x-text="rupiah(item.total)"></span>
+              </div>
+            </div>
           </div>
-          <i data-feather="trash-2" class="remove-item"></i>
-        </div>
+        </template>
+        <!-- tulisan Cart is Empty ini hanya muncul ketika cartnya tidak ada isinya-->
+        <h4 x-show="!$store.cart.items.length" style="margin-top: 1rem">
+          Cart is Empty
+        </h4>
+        <!-- dan total harga keseluruhan ini hanya muncul ketika cartnya ada isinya -->
+        <h4 x-show="$store.cart.items.length">
+          Total : <span x-text="rupiah($store.cart.total)"></span>
+        </h4>
 
-        <div class="cart-item">
-          <img src="img/products/produk1.jpg" alt="Product 1" />
-          <div class="item-detail">
-            <h3>Product 1</h3>
-            <div class="item-price">IDR 30K</div>
-          </div>
-          <i data-feather="trash-2" class="remove-item"></i>
-        </div>
+        <!-- form ini hanya muncul ketika cartnya ada isinya-->
+        <div class="form-container" x-show="$store.cart.items.length">
+          <form action="" id="checkoutForm">
+            <h5>Customer Detail</h5>
 
-        <div class="cart-item">
-          <img src="img/products/produk1.jpg" alt="Product 1" />
-          <div class="item-detail">
-            <h3>Product 1</h3>
-            <div class="item-price">IDR 30K</div>
-          </div>
-          <i data-feather="trash-2" class="remove-item"></i>
+            <label for="name">
+              <span>Name</span>
+              <input type="text" name="name" id="name" />
+            </label>
+
+            <label for="email">
+              <span>Email</span>
+              <input type="email" name="email" id="email" />
+            </label>
+
+            <label for="phone">
+              <span>Phone</span>
+              <input type="number" name="phone" id="phone" autocomplete="off" />
+            </label>
+
+            <button
+              class="checkout-button"
+              type="submit"
+              id="checkout-button"
+              value="checkout"
+            >
+              Checkout
+            </button>
+          </form>
         </div>
       </div>
       <!-- Shopping cart End -->
@@ -163,7 +213,7 @@
     <!-- Menu Section End -->
 
     <!-- Product Section Start -->
-    <section class="products" id="products">
+    <section class="products" id="products" x-data="products">
       <h2><span>Produk Unggulan</span> Kami</h2>
       <p>
         Kami menyediakan produk biji kopi unggulan, pesan sekarang juga sebelum
@@ -171,83 +221,114 @@
       </p>
 
       <div class="row">
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="shopping-cart"></i></a>
-            <a href="#" class="item-detail-button"
-              ><i data-feather="eye"></i
-            ></a>
-          </div>
-          <div class="product-image">
-            <img src="./img/products/produk1.jpg" alt="Product 1" />
-          </div>
-          <div class="product-content">
-            <h3>Coffe beans 1</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star"></i>
+        <!-- looping data dengan alpine template-->
+        <template x-for="(item, index) in items" x-key="index">
+          <div class="product-card">
+            <div class="product-icons">
+              <!-- menggunakan fitur @click dari alpine -->
+              <!-- jika link ini diklik maka panggil data storenya alpine lalu panggil datanya dengan nama data cart lalu kita jalankan method add sambil mengirim sebuah item-->
+              <a href="#" @click.prevent="$store.cart.add(item)">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#shopping-cart" />
+                </svg>
+              </a>
+              <a href="#" class="item-detail-button">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#eye" />
+                </svg>
+              </a>
             </div>
-            <div class="product-price">
-              IDR 30K
-              <span>IDR 55K</span>
+            <div class="product-image">
+              <!-- menggunakan fitur src dan alt dari alpine js -->
+              <img :src="`./img/products/${item.img}`" :alt="item.name" />
             </div>
-          </div>
-        </div>
+            <div class="product-content">
+              <!-- menggunakan fitur x-text dari alpine js -->
+              <h3 x-text="item.name"></h3>
+              <div class="product-stars">
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
 
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="shopping-cart"></i></a>
-            <a href="#" class="item-detail-button"
-              ><i data-feather="eye"></i
-            ></a>
-          </div>
-          <div class="product-image">
-            <img src="./img/products/produk1.jpg" alt="Product 1" />
-          </div>
-          <div class="product-content">
-            <h3>Coffe beans 1</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star"></i>
-            </div>
-            <div class="product-price">
-              IDR 30K
-              <span>IDR 55K</span>
-            </div>
-          </div>
-        </div>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
 
-        <div class="product-card">
-          <div class="product-icons">
-            <a href="#"><i data-feather="shopping-cart"></i></a>
-            <a href="#" class="item-detail-button"
-              ><i data-feather="eye"></i
-            ></a>
-          </div>
-          <div class="product-image">
-            <img src="./img/products/produk1.jpg" alt="Product 1" />
-          </div>
-          <div class="product-content">
-            <h3>Coffe beans 1</h3>
-            <div class="product-stars">
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star" class="star-full"></i>
-              <i data-feather="star"></i>
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+
+                <svg
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <use href="img/feather-sprite.svg#star" />
+                </svg>
+              </div>
+              <div class="product-price">
+                <!-- menggunakan fitur x-text dari alpine js -->
+                <span x-text="rupiah(item.price)"></span>
+              </div>
             </div>
-            <div class="product-price">
-              IDR 30K
-              <span>IDR 55K</span>
-            </div>
           </div>
-        </div>
+        </template>
       </div>
     </section>
     <!-- Product Section End -->
