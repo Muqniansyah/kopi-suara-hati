@@ -106,6 +106,56 @@ document.addEventListener("alpine:init", () => {
   });
 });
 
+// Form Validation
+const checkoutButton = document.querySelector(".checkout-button");
+checkoutButton.disabled = true;
+
+const form = document.querySelector("#checkoutForm");
+
+form.addEventListener("keyup", function () {
+  // telusuri masing masing elementnya
+  for (let i = 0; i < form.elements.length; i++) {
+    // jika form elements dengan index ke i ada valuenya tidak sama dengan 0. atau ada elemen yang kosong.
+    if (form.elements[i].value.length !== 0) {
+      // maka kita timpa disablednya
+      checkoutButton.classList.remove("disabled");
+      checkoutButton.classList.add("disabled");
+    } else {
+      return false;
+    }
+  }
+  checkoutButton.disabled = false;
+  checkoutButton.classList.remove("disabled");
+});
+
+// Kirim data ketika tombol checkout diklik
+checkoutButton.addEventListener("click", function (e) {
+  e.preventDefault();
+  const formData = new FormData(form); // mengambil data didalam formnya
+  const data = new URLSearchParams(formData); // datanya kita konversi, karna formnya dikirim dengan menggunakan method get. jadi kita ambil datanya melalui URL karna memakai method get.
+  const objData = Object.fromEntries(data); // setelah didapat kita konversi string yang dikirim jadi object.
+  // menggunakan layanan wa.me untuk mengirimkan pesan ke whatsapp
+  // encodeURIComponent() untuk supaya nanti otomatis jika ada spasi bisa diterjemahkan jadi %20 dan sebagainya.
+  const message = formatMessage(objData);
+  window.open("http://wa.me/6289607886367?text=" + encodeURIComponent(message)); //utuk indonesia menggunakan 62
+  console.log(objData);
+});
+
+// format pesan whatsapp
+const formatMessage = (obj) => {
+  return `Data Customer
+  Nama  : ${obj.name}
+  Email : ${obj.email}
+  No Hp : ${obj.phone}
+Data Pesanan
+${JSON.parse(obj.items).map(
+  (item) => `${item.name} (${item.quantity} X ${rupiah(item.total)}) \n`
+)}
+TOTAL : ${rupiah(obj.total)}
+Terima Kasih.
+  `;
+};
+
 // Konversi ke Rupiah menggunakan Intl.NumberFormat
 const rupiah = (number) => {
   return new Intl.NumberFormat("id-ID", {
